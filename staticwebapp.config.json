@@ -1,0 +1,16 @@
+﻿{
+  "routes": [
+    {
+      "route": "/withsubmit",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/withoutsubmit",
+      "serve": "/index.html"
+    },
+    {
+      "route": "/*",
+      "serve": "/index.html"
+    }
+  ]
+}
