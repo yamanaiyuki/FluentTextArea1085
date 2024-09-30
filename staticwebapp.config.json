@@ -1,16 +1,11 @@
 ﻿{
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
   "routes": [
     {
       "route": "/withsubmit",
-      "serve": "/index.html"
-    },
-    {
-      "route": "/withoutsubmit",
-      "serve": "/index.html"
-    },
-    {
-      "route": "/*",
-      "serve": "/index.html"
+      "rewrite": "/index.html"
     }
   ]
 }
