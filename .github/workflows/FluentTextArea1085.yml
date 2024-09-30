@@ -13,7 +13,8 @@ on:
     - main
 env:
   AZURE_STATIC_WEBAPP_NAME: FluentTextArea1085
-  APP_DIRECTORY: FluentTextArea1085
+  #APP_DIRECTORY: FluentTextArea1085
+  APP_DIRECTORY: /
   API_DIRECTORY: ''
   OUTPUT: wwwroot
   DEPLOYMENT_ENVIRONMENT: preview
