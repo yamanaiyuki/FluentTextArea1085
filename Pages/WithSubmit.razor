@@ -1,0 +1,66 @@
+﻿@page "/withsubmit"
+@using System.ComponentModel.DataAnnotations
+
+<h3>With Submit</h3>
+
+<EditForm Model="item" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+
+    <FluentGrid style="width:500px;">
+        <FluentGridItem xs="12" sm="6">
+            <FluentTextField Label="Subject" @bind-Value=item.Subject />
+        </FluentGridItem>
+        <FluentGridItem xs="12" sm="6">
+            <ValidationMessage For="() => item.Subject" />
+        </FluentGridItem>
+
+        <FluentGridItem xs="12" sm="6">
+            <FluentTextArea Label="Message" Resize="TextAreaResize.Both" @bind-Value=item.Message />
+        </FluentGridItem>
+        <FluentGridItem xs="12" sm="6">
+            <ValidationMessage For="() => item.Message" />
+        </FluentGridItem>
+    </FluentGrid>
+    <br />
+
+    <FluentButton Appearance="Appearance.Accent" Type="ButtonType.Submit">Send</FluentButton>
+</EditForm>
+<br />
+
+@if (templates.Count > 0)
+{
+    <FluentDataGrid Items="templates.AsQueryable()" style="width:500px;">
+        <PropertyColumn Property="x => x.DateTime" Format="yyyy-MM-dd HH:mm:ss" />
+        <PropertyColumn Property="x => x.Subject" />
+        <PropertyColumn Property="x => x.Message" Class="multiline-text" />
+    </FluentDataGrid>
+}
+
+@code {
+    readonly List<MailTemplate> templates = new();
+
+    MailTemplate item = new();
+
+    void OnValidSubmit()
+    {
+        item.DateTime = DateTime.Now;
+        templates.Add(item);
+
+        item = new()
+            {
+                Subject = "Re: " + templates[^1].Subject,
+                Message = "anonymous wrote:\n>" + templates[^1].Message.Replace("\n", "\n> "),
+            };
+    }
+
+    public class MailTemplate
+    {
+        public DateTime DateTime { get; set; }
+
+        [Required]
+        public string Subject { get; set; } = "";
+
+        [Required]
+        public string Message { get; set; } = "";
+    }
+}
